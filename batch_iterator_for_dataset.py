@@ -25,20 +25,33 @@ X = np.array([[1, 2],
 y = np.array([1, 2, 3, 4, 5])
 batch_size = 2
 
-ti = math.ceil(len(X)/batch_size)
-flag = 0
+# ti = math.ceil(len(X)/batch_size)
+# flag = 0
 
-list = []
+# list = []
 
-for _ in range(ti):
-    sublist = [[], []] if y is not None else [[]]
-    for _ in range(batch_size):
-        if flag <= (len(X)-1):
-            sublist[0].append(X[flag].tolist())
-            if y is not None:
-                sublist[1].append(y[flag])
-            flag += 1
-        else:
-            break
-    list.append(sublist)
-print(list)
+# for _ in range(ti):
+#     sublist = [[], []] if y is not None else [[]]
+#     for _ in range(batch_size):
+#         if flag <= (len(X)-1):
+#             sublist[0].append(X[flag].tolist())
+#             if y is not None:
+#                 sublist[1].append(y[flag])
+#             flag += 1
+#         else:
+#             break
+#     list.append(sublist)
+# print(list)
+
+# import numpy as np
+
+n_samples = X.shape[0]
+print("n_samples: ",n_samples)
+batches = []
+for i in np.arange(0, n_samples, batch_size):
+    begin, end = i, min(i+batch_size, n_samples)
+    print(f"Begin: {begin}, End:{end}, I: {i}")
+    if y is not None:
+        batches.append([X[begin:end], y[begin:end]])
+    else:
+        batches.append( X[begin:end])
